@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
+import CreatePost from "./components/CreatePost";
+import Card from "./components/Card";
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Sidebar></Sidebar>
         <div className="content">
           <Header></Header>
+          <CreatePost></CreatePost>
+          <Card></Card>
           <Footer></Footer>
         </div>
       </div>

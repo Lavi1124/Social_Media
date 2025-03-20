@@ -12,22 +12,24 @@ function App() {
 
   return (
     <>
-      <div className="app-container">
-        <Sidebar
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-        ></Sidebar>
-        <div className="content">
-          <Header></Header>
-          {selectedTab === "Home" ? (
-            <PostList></PostList>
-          ) : (
-            <CreatePost></CreatePost>
-          )}
+      <PostListProvider>
+        <div className="app-container">
+          <Sidebar
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+          ></Sidebar>
+          <div className="content">
+            <Header></Header>
+            {selectedTab === "Home" ? (
+              <PostList></PostList>
+            ) : (
+              <CreatePost></CreatePost>
+            )}
 
-          <Footer></Footer>
+            <Footer></Footer>
+          </div>
         </div>
-      </div>
+      </PostListProvider>
     </>
   );
 }

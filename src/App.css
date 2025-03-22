@@ -12,8 +12,15 @@
 
 .post-card{
     margin: 25px 50px;
+    min-width: 28rem;
+    
 }
 
 .hashtag{
     margin: 2px 3px;
+}
+
+.reactions{
+    width: 100%;
+    margin: 15px 0 0 0;
 }

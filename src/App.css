@@ -9,3 +9,11 @@
 .sidebar{
     min-height: 800px;
 }
+
+.post-card{
+    margin: 25px 50px;
+}
+
+.hashtag{
+    margin: 2px 3px;
+}

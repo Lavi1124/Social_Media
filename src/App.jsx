@@ -6,6 +6,7 @@ import Sidebar from "./components/Sidebar";
 import CreatePost from "./components/CreatePost";
 import PostList from "./components/PostList";
 import { useState } from "react";
+import PostListProvider from "./store/Post-List-Store";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState("Home");

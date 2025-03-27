@@ -35,9 +35,3 @@
 .sidebar-title{
     margin-right: 20%
 }
-
-.cards-container{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}

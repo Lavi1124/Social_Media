@@ -1,8 +1,13 @@
-const WelcomeMessage = () => {
+const WelcomeMessage = ({ onGetPostsClick }) => {
   return (
-    <h1>
-      Welcome! There are no posts here yet. You can put up a new one here...
-    </h1>
+    <>
+      <center className="welcome-message">
+        <h2>
+          Welcome! There are no posts here yet. You can put up a new one here...
+        </h2>
+        <br />
+      </center>
+    </>
   );
 };
 

@@ -1,9 +1,14 @@
-import { createContext, useReducer } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 export const PostList = createContext({
   postList: [],
   addPost: () => {},
-  addInitialPosts: () => {},
   deletePost: () => {},
 });
 
@@ -11,7 +16,7 @@ const postListReducer = (currPostList, action) => {
   let newPostList = currPostList;
   if (action.type === "DELETE_POST") {
     newPostList = currPostList.filter(
-      (Card) => Card.id !== action.payload.CardID
+      (post) => post.id !== action.payload.postId
     );
   } else if (action.type === "ADD_INITIAL_POSTS") {
     newPostList = action.payload.posts;
@@ -23,19 +28,14 @@ const postListReducer = (currPostList, action) => {
 
 const PostListProvider = ({ children }) => {
   const [postList, dispatchPostList] = useReducer(postListReducer, []);
-  const addPost = (userID, postTitle, postBody, reactions, tags) => {
+
+  const addPost = (post) => {
     dispatchPostList({
       type: "ADD_POST",
-      payload: {
-        id: Date.now(),
-        title: postTitle,
-        body: postBody,
-        reactions: reactions,
-        userID: userID,
-        tags: tags,
-      },
+      payload: post,
     });
   };
+
   const addInitialPosts = (posts) => {
     dispatchPostList({
       type: "ADD_INITIAL_POSTS",
@@ -45,24 +45,20 @@ const PostListProvider = ({ children }) => {
     });
   };
 
-  const deletePost = (CardID) => {
-    dispatchPostList({
-      type: "DELETE_POST",
-      payload: {
-        CardID,
-      },
-    });
-  };
+  const deletePost = useCallback(
+    (postId) => {
+      dispatchPostList({
+        type: "DELETE_POST",
+        payload: {
+          postId,
+        },
+      });
+    },
+    [dispatchPostList]
+  );
 
   return (
-    <PostList.Provider
-      value={{
-        postList,
-        addPost,
-        deletePost,
-        addInitialPosts,
-      }}
-    >
+    <PostList.Provider value={{ postList, addPost, deletePost }}>
       {children}
     </PostList.Provider>
   );

@@ -1,35 +1,28 @@
-import Card from "./Card";
 import { useContext, useEffect, useState } from "react";
-import { PostList as PostListData } from "../store/Post-List-Store";
+import Post from "./Post";
+import { PostList as PostListData } from "../store/post-list-store";
 import WelcomeMessage from "./WelcomeMessage";
-import LoadingSpinner from "./LoadingSpinner";
+import { useLoaderData } from "react-router-dom";
 
 const PostList = () => {
-  const { postList, addInitialPosts } = useContext(PostListData);
-  const [fetching, setfetching] = useState(false);
-  useEffect(() => {
-    setfetching(true);
-    const controller = new AbortController();
-    const signal = controller.signal;
-    fetch("https://dummyjson.com/posts", { signal })
-      .then((res) => res.json())
-      .then((data) => {
-        addInitialPosts([]);
-        setfetching(false);
-      });
-    return () => {
-      console.log("Cleaning up useEffect.");
-      controller.abort();
-    };
-  }, []);
+  const postList = useLoaderData();
 
   return (
     <>
-      {fetching && <LoadingSpinner />}
-      {!fetching && PostList.length === 0 && <WelcomeMessage />}
-      {!fetching && postList.map((post) => <Card key={post.id} Card={post} />)}
+      {postList.length === 0 && <WelcomeMessage />}
+      {postList.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
     </>
   );
+};
+
+export const postLoader = () => {
+  return fetch("https://dummyjson.com/posts")
+    .then((res) => res.json())
+    .then((data) => {
+      return data.posts;
+    });
 };
 
 export default PostList;
